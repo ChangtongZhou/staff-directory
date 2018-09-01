@@ -19,8 +19,8 @@ This is a staff management application created with MERN Stack (MongoDB, Express
         * cellPhone: String
         * SMS: String
         * email: String
-        * manager: Ref manager id
-        * directReports: Array
+        * manager: Ref manager(other staff) id
+        * directReports: Array (array of other staff's id)
         * numOfDirectReports: Number
 
 ### REST API Specification
@@ -40,7 +40,7 @@ This is a staff management application created with MERN Stack (MongoDB, Express
     * Staff summary - detailed information about the staff
         * When manager is clicked, it goes to the manager's summary page
         * When direct reports is clicked, it goes to the direct report list page
-        * WHen a contact is clicked, it makes calls/send email
+        * When a contact is clicked, it makes calls/send email
         * The staff information can be edited via an Edit button and then Save
         * Back button goes to the Home page
     * Direct reports - List of all direct reports
