@@ -13,15 +13,24 @@ This is a staff management application created with MERN Stack (MongoDB, Express
     * Staffs:
         * name: String
         * title: String
+        * avatar_url: String
         * sex: String
         * startDate: Date
         * officePhone: String
         * cellPhone: String
         * SMS: String
         * email: String
-        * manager: Ref manager(other staff) id
+        * manager: Ref manager(other staff) id, this id is given via frontend
         * directReports: Array (array of other staff's id)
-        * numOfDirectReports: Number
+
+* Relationship design:
+    * Modeling one-to-many
+        * manager: Denormalize from One -> Many, use parent reference
+            * Because Read > Write 
+        * direct reports: Denormalize from Many -> One, use array
+
+* Reason:
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2?_ga=2.60215789.1376636419.1535758765-876515714.1532816065
 
 ### REST API Specification
 
