@@ -13,13 +13,61 @@ const getAll = (req, res) => {
 
 /////////////////////////////////////////////////////////////// Get one staff by id ///////////////////////////////////////////////////////////////
 const getOneById = (req, res) => {
+    let managerName = null;
+    let numOfDRs = 0;
     Staff.findById(req.params.id, (err, staff) => {
         if (err) {
             res.status(500).json({error: err});
         } else {
-            res.status(200).json({staff});
+            // Find number of direct reporters
+            if(staff.directReports) {
+                numOfDRs = staff.directReports.length;
+            }
+
+            // Find manager name
+            if (staff.manager) {
+                Staff.findById(staff.manager, (err, manager) => {
+                    if(err) res.status(500).json({error: err});
+                    else {
+                        console.log('finding staff manager', manager.name);
+                        managerName = manager.name;
+                        // console.log(`manager name: ${managerName}`)
+                        res.status(200).json({
+                            staff,
+                            managerName: managerName,
+                            numOfDRs: numOfDRs
+                        });
+                    }
+                })
+            } else {
+                res.status(200).json({
+                    staff,
+                    managerName: managerName,
+                    numOfDRs: numOfDRs
+                });
+            }            
         }
     })
+}
+
+/////////////////////////////////////////////////////////////// Get direct reporters by staff id ///////////////////////////////////////////////////////////////
+const getDirectReporters = (req, res) => {
+    Staff.findById(req.params.id, (err, staff) => {
+        if(err) res.status(500).json({error: err});
+        else {
+            let drs = staff.directReports;
+            Staff.find({}, (err, all) => {
+                if(err) {
+                    res.status(500).json({error: err});
+                } else {
+                    res.status(200).json({
+                        reporters: all.filter(s => drs.includes(s.id))
+                    });
+                }
+            })
+        }
+    })
+
 }
 
 /////////////////////////////////////////////////////////////// Add one staff ///////////////////////////////////////////////////////////////
@@ -182,4 +230,4 @@ const deleteStaff = (req, res) => {
     })
 }
 
-module.exports = {getAll, getOneById, addStaff, editStaff, deleteStaff};
+module.exports = {getAll, getOneById, addStaff, editStaff, deleteStaff, getDirectReporters};
