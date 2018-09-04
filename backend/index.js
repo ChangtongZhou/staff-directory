@@ -18,6 +18,7 @@ db.once('open', () => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+// app.use(cors());
 app.use('/api', staff);
 
 app.listen(PORT, () => console.log(`Staff-library app listening on port ${PORT}`));

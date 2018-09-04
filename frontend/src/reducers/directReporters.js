@@ -1,18 +1,19 @@
-const directReporters = (state = {isLoading: false, error: null, reporters: []}, action) => {
+const directReporters = (state = {isLoading: false, error: null, data: []}, action) => {
     switch(action.type) {
-        case 'REQUEST_STAFFS_START':
+        case 'REQUEST_REPORTERS_START':
             return {
                 ...state,
                 isLoading: true
             };
-        case 'REQUEST_STAFFS_SUCCESS':
+        case 'REQUEST_REPORTERS_SUCCESS':
+            console.log(`reporters in action of reducer: ${JSON.stringify(action, null, 2)}`)
             return {
                 ...state,
                 isLoading: false,
                 error: null,
-                reporters: action.reporters
+                data: action.reporters
             };
-        case 'REQUEST_STAFFS_FAIL':
+        case 'REQUEST_REPORTERS_FAIL':
             return {
                 ...state,
                 isLoading: false,

@@ -21,6 +21,7 @@ function getStaffFail(error) {
 }
 
 export function getStaffs() {
+    console.log('fetching staff list...')
     return (dispatch, store) => {
         dispatch(getStaffStart());
         axios
@@ -35,12 +36,14 @@ export function getStaffs() {
 };
 
 export function addStaff(newStaff) {
+    console.log('Adding new staff...')
     return (dispatch, store) => {
         dispatch(getStaffStart());
         axios
         .post('/api/addStaff', newStaff)
         .then(response => {
-            dispatch(getStaffSuccess(response.data.message));
+            // console.log(`res of addStaff action is: ${JSON.stringify(response, null, 2)}`)
+            dispatch(getStaffSuccess(response.data.staffs));
         })
         .catch(err => {
             dispatch(getStaffFail(err));
@@ -49,12 +52,13 @@ export function addStaff(newStaff) {
 }
 
 export function deleteStaff(id) {
+    console.log('Deleting new staff...')
     return (dispatch, store) => {
         dispatch(getStaffStart());
         axios
         .delete(`/api/staff/${id}`)
         .then(response => {
-            dispatch(getStaffSuccess(response.data.message));
+            dispatch(getStaffSuccess(response.data.staffs));
         })
         .catch(err => {
             dispatch(getStaffFail(err));

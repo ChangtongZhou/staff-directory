@@ -9,7 +9,7 @@ function getStaffDetailStart() {
 function getStaffDetailSuccess(response) {
     return {
         type: 'REQUEST_STAFFDETAIL_SUCCESS',
-        detail: response.detail,
+        detail: response.staff,
         managerName: response.managerName,
         numOfDRs: response.numOfDRs
     }
@@ -28,6 +28,7 @@ export function getStaffDetail(id) {
         axios
         .get(`/api/staff/${id}`)
         .then(response => {
+            // console.log(`response in staffDetail action: ${JSON.stringify(response.data, null, 2)}`)
             dispatch(getStaffDetailSuccess(response.data));
         })
         .catch(err => {
@@ -51,12 +52,13 @@ export function getStaffDetail(id) {
 // }
 
 export function editStaff(id, newStaff) {
+    console.log(`Editing staff...${JSON.stringify(newStaff)}`)
     return (dispatch, store) => {
         dispatch(getStaffDetailStart());
         axios
-        .put(`api/staff/${id}`, newStaff)
+        .put(`/api/staff/${id}`, newStaff)
         .then(response => {
-            dispatch(getStaffDetailSuccess(response.data.message));
+            dispatch(getStaffDetailSuccess(response.data));
         })
         .catch(err => {
             dispatch(getStaffDetailFail(err));

@@ -16,6 +16,7 @@ const getOneById = (req, res) => {
     let managerName = null;
     let numOfDRs = 0;
     Staff.findById(req.params.id, (err, staff) => {
+
         if (err) {
             res.status(500).json({error: err});
         } else {
@@ -29,9 +30,9 @@ const getOneById = (req, res) => {
                 Staff.findById(staff.manager, (err, manager) => {
                     if(err) res.status(500).json({error: err});
                     else {
-                        console.log('finding staff manager', manager.name);
+                        // console.log('finding staff manager', manager.name);
+                        console.log(`You selected: ${staff.name}`)
                         managerName = manager.name;
-                        // console.log(`manager name: ${managerName}`)
                         res.status(200).json({
                             staff,
                             managerName: managerName,
@@ -40,6 +41,7 @@ const getOneById = (req, res) => {
                     }
                 })
             } else {
+                console.log(`You selected: ${staff.name}`)
                 res.status(200).json({
                     staff,
                     managerName: managerName,
@@ -79,8 +81,8 @@ const addStaff = (req, res) => {
             if(err) {
                 res.status(500).json({error: err});
             } else {
-                // getAll(req, res);
-                res.status(201).json({message: 'New staff created!'});
+                getAll(req, res);
+                // res.status(201).json({message: 'New staff created!'});
             }
         })
     } else {
@@ -102,8 +104,8 @@ const addStaff = (req, res) => {
                         Staff.findByIdAndUpdate(manager._id, {directReports: newDR}, (err) => {
                             if (err) res.status(500).json({error: err});
                             else {
-                                res.status(201).json({message: 'New staff created and the managers direct reports are updated!'});
-                                // getAll(req, res);
+                                // res.status(201).json({message: 'New staff created and the managers direct reports are updated!'});
+                                getAll(req, res);
                                 // console.log(`Your edited manager's DR, new manager is: ${staff}`);
                                 // Get updated staff list
                                 // Staff.find({}, (err, staffs) => {
@@ -136,7 +138,7 @@ const editStaff = (req, res) => {
                     console.log(`Management circle is not allowed`);
                     res.status(500).json({error: "Management circle is not allowed"});
                 } else if(staff.manager != req.body.manager) {
-                    // manager changes
+                    // If manager changes
                     // 1. add current staff into new manager's direct reports
                     if (req.body.manager) {
                         Staff.findById(req.body.manager, (err, manager) => {
@@ -173,12 +175,23 @@ const editStaff = (req, res) => {
                     Staff.findByIdAndUpdate(req.params.id, req.body, (err, updatedStaff) => {
                         if (err) res.status(500).json({error: err});
                         else {
+                            getOneById(req, res);
                             // res.status(200).json({updatedStaff});
-                            res.status(201).json({message: 'The staff is updated!'});
+                            // res.status(201).json({message: 'The staff is updated!'});
+                            // getAll(req, res);
                         }
                     });
-                    
-                    
+                } else {
+                    // If manager is not changed
+                    Staff.findByIdAndUpdate(req.params.id, req.body, (err, updatedStaff) => {
+                        if (err) res.status(500).json({error: err});
+                        else {
+                            getOneById(req, res);
+                            // res.status(200).json({updatedStaff});
+                            // res.status(201).json({message: 'The staff is updated!'});
+                            // getAll(req, res);
+                        }
+                    });
                 } 
                 
             }
@@ -222,7 +235,8 @@ const deleteStaff = (req, res) => {
                 if (err) res.status(500).json({error: err});
                 else {
                     // res.status(200).json({updatedStaff});
-                    res.status(201).json({message: 'The staff is deleted!'});
+                    // res.status(201).json({message: 'The staff is deleted!'});
+                    getAll(req, res);
                 }
             });
 

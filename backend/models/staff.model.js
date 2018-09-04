@@ -7,6 +7,7 @@ let StaffSchema = new Schema ({
     avatar_url: {type: String, default: null},
     sex: {type: String, default: null},
     startDate: {type: Date, default: Date.now},
+    email: {type: String, default: null},
     officePhone: {type: Number, default: null},
     cellPhone: {type: Number, default: null},
     SMS: {type: Number, default: null},

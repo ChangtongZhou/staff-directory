@@ -7,9 +7,10 @@ function getReportersStart() {
 }
 
 function getReportersSuccess(response) {
+    // console.log(`get reporters in action: ${JSON.stringify(response, null, 2)}`)
     return {
         type: 'REQUEST_REPORTERS_SUCCESS',
-        staff: response
+        reporters: response
     }
 }
 
@@ -21,6 +22,7 @@ function getReportersFail(error) {
 }
 
 export function getReporters(id) {
+    console.log('fetching direct reporters.')
     return (dispatch, store) => {
         dispatch(getReportersStart());
         axios

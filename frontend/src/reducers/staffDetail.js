@@ -6,13 +6,14 @@ const staffDetail = (state = {isLoading: false, error: null, detail: {}}, action
                 isLoading: true
             };
         case 'REQUEST_STAFFDETAIL_SUCCESS':
+            // console.log(`detail in staffdetail reducer: ${JSON.stringify(action, null, 2)}`)
             return {
                 ...state,
                 isLoading: false,
-                error: null,
-                detail: action.detail.staff,
-                manager: action.detail.managerName,
-                numOfDRs: action.detail.numOfDRs
+                detail: action.detail,
+                manager: action.managerName,
+                numOfDRs: action.numOfDRs
+                
             };
         case 'REQUEST_STAFFDETAIL_FAIL':
             return {
