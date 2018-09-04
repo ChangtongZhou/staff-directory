@@ -16,7 +16,7 @@ class StaffDetailContainer extends Component {
     //     this.props.getStaffDetail(this.props.match.params.id)
     // }
     componentDidMount() {
-        console.log('mounting? ')
+        // console.log('mounting? ')
         this.props.getStaffDetail(this.props.match.params.id)
     }
 

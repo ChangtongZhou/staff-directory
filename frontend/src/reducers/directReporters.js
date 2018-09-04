@@ -6,7 +6,7 @@ const directReporters = (state = {isLoading: false, error: null, data: []}, acti
                 isLoading: true
             };
         case 'REQUEST_REPORTERS_SUCCESS':
-            console.log(`reporters in action of reducer: ${JSON.stringify(action, null, 2)}`)
+            // console.log(`reporters in action of reducer: ${JSON.stringify(action, null, 2)}`)
             return {
                 ...state,
                 isLoading: false,

@@ -73,8 +73,8 @@ class StaffList extends Component {
       if(numOfDRs > 0) {
         //   this.props.history.push(`/staff/${id}/directReporters`)
         //   this.props.getReporters(id);
-        console.log(`id in detail: ${id}`)
-        this.props.history.push(`/staff/directReporters/${id}`)
+        // console.log(`id in detail: ${id}`)
+        this.props.history.push(`/staff/${id}/directReporters`)
       }
      
   }

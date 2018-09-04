@@ -5,8 +5,8 @@ import { getStaffDetail, editStaff } from '../../actions/staffDetail';
 import {getReporters} from '../../actions/directReporters'
 import {withRouter} from 'react-router-dom';
 
-import StaffDetail from '../../components/StaffDetail'
-const WithRouterStaffDetail = withRouter(StaffDetail);
+import DirectReporters from '../../components/DirectReporters'
+const WithRouterDirectReporters = withRouter(DirectReporters);
 
 class ReporterContainer extends Component {
     componentDidMount() {
@@ -16,24 +16,19 @@ class ReporterContainer extends Component {
 
     render() {
         const {directReporters} = this.props;
-        console.log(`directReporters in DR container: ${JSON.stringify(directReporters, null, 2)}`);
-        // console.log(`this.props in list contrainer: ${JSON.stringify(this.props, null, 2)}`)
-        // const {error, isLoading} = staffs;
-        // const staffList = staffs.staff;
-        // const detail = staffDetail;
         return (
             <Fragment>
-                <p>hi</p>
                 {
                     directReporters.error? 
-                    <p style={{color: 'red'}}> Cannot get staff... </p> : 
-                    directReporters
+                    <p style={{color: 'red'}}> Cannot fetch direct reporters... </p> : 
+                    directReporters.data.length > 0
                     && 
-                    <p>hi</p>
-                    // <WithRouterStaffDetail 
-                    //     directReporters = {directReporters} 
-                    //     getReporters = {this.props.getReporters}
-                    // />
+                    // <p>Hi</p>
+                    // <p>{directReporters.data[0].name}</p>
+                    <WithRouterDirectReporters 
+                        directReporters = {directReporters.data} 
+                        getReporters = {this.props.getReporters}
+                    />
                 }
                 {/* {staffDetail.detail.name && } */}
                 

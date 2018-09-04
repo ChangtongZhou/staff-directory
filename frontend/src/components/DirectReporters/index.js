@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {List, ListItem, ListItemSecondaryAction, ListItemText, TextField, Avatar, Paper, Divider, Typography, Button} from '@material-ui/core';
+import {Grid, List, ListItem, ListItemSecondaryAction, ListItemText, IconButton, Avatar, Paper, Divider, Typography, Button} from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import SearchIcon from '@material-ui/icons/Search';
-import SortIcon from '@material-ui/icons/Sort';
-import AddIcon from '@material-ui/icons/Add';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 // import SearchBar from 'material-ui-search-bar';
 // import AddStaffModal from './AddStaffModal';
 // import AddStaffContainer from '../../containers/AddStaffContainer'
@@ -103,37 +101,49 @@ class StaffList extends Component {
     this.setState({ openModal: false });
   };
 
-  seleteStaff = (id) => {
-    console.log(`you seleted staff: ${id}`);
-    this.props.getStaffDetail(id);
-  }
+  goBack = (id) => {
+    this.props.history.push(`/staff/${id}`);
+}
 
+  seleteReporter = (id) => {
+      if(id) {
+        this.props.history.push(`/staff/${id}`) 
+      }
+  }
+  
   render() {
-    const {classes, staffList} = this.props;
+    const {classes, directReporters} = this.props;
     return (
       <Paper className={classes.root}>
         {/* Title */}
-        <Typography variant="display1" align="center" className={classes.typography}>
-          Staff
-        </Typography>
-        <Divider />
-
-        {/* Search bar */}
-        <div style={{margin: '25px'}}>
-            <p> Summary: </p>
+        {/* Top Bar */}
+        <div>
+            <Grid container wrap="nowrap" spacing={16}>
+                <Grid item xs={3}>
+                    <IconButton className={classes.button} onClick={() => this.goBack(this.props.match.params.id)}>
+                        <ArrowBackIosIcon className={classes.icons} style={{paddingLeft: "10px"}}/>
+                    </IconButton>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="display1" align="center" className={classes.typography}>
+                        Direct Reports
+                    </Typography>
+                </Grid>
+            </Grid>
+            
         </div>
         <Divider />
-        
-        { /* Display staff list */
-          staffList.length > 0 && 
+
+        { /* Display staff list */}
+          
           <List>
             {/* {console.log(`staffList: ${JSON.stringify(this.props, null, 2)}`)} */}
             {
-              staffList
+              directReporters
               .sort(sorting(this.state.order))
               .filter(staff => this.handleSearch(staff))
               .map(staff => (
-                <ListItem key={staff._id} dense button className={classes.listItem} onClick = {() => this.seleteStaff(staff._id)}>
+                <ListItem key={staff._id} dense button className={classes.listItem} onClick = {() => this.seleteReporter(staff._id)}>
                   <Avatar alt="Remy Sharp" src={require('../../imgs/avartar1.JPG')} className={classes.bigAvatar}/>
                   {/* <Avatar alt="Remy Sharp" src={require('../../imgs/Avatar2.jpg')} /> */}
                   <ListItemText primary={staff.name} secondary={staff.title} style={{fontSize: "20px"}} />
@@ -146,7 +156,7 @@ class StaffList extends Component {
               ))
             }
           </List>
-        }
+        
         
       </Paper>
     )
