@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {List, ListItem, ListItemSecondaryAction, ListItemText, TextField, Avatar, Paper, Divider, Typography, Button} from '@material-ui/core';
+import {List, ListItem, ListItemSecondaryAction, ListItemText, TextField, Avatar, Paper, Divider, Typography, Button, IconButton} from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import SearchIcon from '@material-ui/icons/Search';
 import SortIcon from '@material-ui/icons/Sort';
 import AddIcon from '@material-ui/icons/Add';
-// import SearchBar from 'material-ui-search-bar';
-// import AddStaffModal from './AddStaffModal';
-// import AddStaffContainer from '../../containers/AddStaffContainer'
 import AddStaffModal from './AddStaffModal';
 
 const styles = theme => ({
@@ -32,7 +29,8 @@ const styles = theme => ({
     },
     count: {
       fontSize: "20px", 
-      textAlign: "right"
+      textAlign: "right",
+      margin: theme.spacing.unit,
     },
     icons: {
       fontSize: 36,

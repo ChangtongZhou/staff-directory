@@ -52,7 +52,7 @@ export function addStaff(newStaff) {
 }
 
 export function deleteStaff(id) {
-    console.log('Deleting new staff...')
+    console.log('Deleting selected staff...')
     return (dispatch, store) => {
         dispatch(getStaffStart());
         axios

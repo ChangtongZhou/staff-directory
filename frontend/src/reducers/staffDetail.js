@@ -3,7 +3,8 @@ const staffDetail = (state = {isLoading: false, error: null, detail: {}}, action
         case 'REQUEST_STAFFDETAIL_START':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: null
             };
         case 'REQUEST_STAFFDETAIL_SUCCESS':
             // console.log(`detail in staffdetail reducer: ${JSON.stringify(action, null, 2)}`)

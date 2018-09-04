@@ -138,7 +138,12 @@ class AddStaffModal extends Component {
                                         value={this.state.avatar}
                                         onChange={this.handleChange}
                                         margin="normal"
+                                        type="file"
                                     />
+                                    {/* <Button
+                                        label='Choose your avatar'>
+                                        <input type="file" />
+                                    </Button> */}
                                 </div>
                                 <div>
                                     <TextField

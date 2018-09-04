@@ -8,6 +8,7 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import MailIcon from '@material-ui/icons/Mail';
 import TextsmsIcon from '@material-ui/icons/Textsms';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import EditStaffModal from './EditStaffModal';
 
@@ -75,8 +76,16 @@ class StaffList extends Component {
         //   this.props.getReporters(id);
         // console.log(`id in detail: ${id}`)
         this.props.history.push(`/staff/${id}/directReporters`)
-      }
+    }
      
+  }
+
+  deleteStaff = (id) => {
+      if(id) {
+        console.log(`deleting this staff: ${id}`)
+        this.props.deleteStaff(id);
+        this.props.history.push('/') 
+      }
   }
   
   render() {
@@ -123,6 +132,9 @@ class StaffList extends Component {
                     <IconButton className={classes.button} onClick={this.openModalHandler}>
                             <EditIcon style={{fontSize: 36, color: "blue"}}/>
                     </IconButton>
+                    <IconButton className={classes.button} onClick ={() => this.deleteStaff(staffDetail.detail._id)}>
+                      <DeleteIcon style={{fontSize: 36, color: "blue"}}/>
+                  </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
             <Divider />
@@ -142,34 +154,42 @@ class StaffList extends Component {
                 </ListItemSecondaryAction>
             </ListItem>
 
-            <ListItem dense button className={classes.listItem} onClick = {() => this.seleteStaff(staffDetail.detail._id)}>
+            <ListItem dense button className={classes.listItem}>
                 <ListItemText primary="Call Office" secondary={staffDetail.detail.officePhone} style={{fontSize: "20px"}}/>
                 <ListItemSecondaryAction>
-                    <CallIcon className={classes.icons}/>
+                    <a href={`tel:${staffDetail.detail.officePhone}`}>
+                        <CallIcon className={classes.icons}/>
+                    </a>
                 </ListItemSecondaryAction>
             </ListItem>
             
-            <ListItem dense button className={classes.listItem} onClick = {() => this.seleteStaff(staffDetail.detail._id)}>
+            <ListItem dense button className={classes.listItem}>
                 <ListItemText primary="Call Cell" secondary={staffDetail.detail.cellPhone} style={{fontSize: "20px"}}/>
                 <ListItemSecondaryAction>
-                    <PhoneIphoneIcon className={classes.icons}/>
+                    <a href={`tel:${staffDetail.detail.officePhone}`}>
+                        <PhoneIphoneIcon className={classes.icons}/>
+                    </a>
                 </ListItemSecondaryAction>
             </ListItem>
 
-            <ListItem dense button className={classes.listItem} onClick = {() => this.seleteStaff(staffDetail.detail._id)}>
+            <ListItem dense button className={classes.listItem}>
                 <ListItemText primary="SMS" secondary={staffDetail.detail.SMS} style={{fontSize: "20px"}}/>
                 <ListItemSecondaryAction>
-                    <TextsmsIcon className={classes.icons}/>
+                    <a href={`sms:${staffDetail.detail.SMS}`}>
+                        <TextsmsIcon className={classes.icons}/>
+                    </a>
                 </ListItemSecondaryAction>
             </ListItem>
 
-            <ListItem dense button className={classes.listItem} onClick = {() => this.seleteStaff(staffDetail.detail._id)}>
+            <ListItem dense button className={classes.listItem}>
                 <ListItemText primary="Email" secondary={staffDetail.detail.email} style={{fontSize: "20px"}}/>
                 <ListItemSecondaryAction>
-                    <MailIcon className={classes.icons}/>
+                    <a href = {`mailto:${staffDetail.detail.email}`}>
+                        <MailIcon className={classes.icons}/>
+                    </a>  
                 </ListItemSecondaryAction>
             </ListItem>
-
+            {/* Reference: https://css-tricks.com/snippets/html/iphone-calling-and-texting-links/ */}
         </List>
         
         

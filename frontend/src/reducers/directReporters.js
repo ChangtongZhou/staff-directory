@@ -3,7 +3,8 @@ const directReporters = (state = {isLoading: false, error: null, data: []}, acti
         case 'REQUEST_REPORTERS_START':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: null
             };
         case 'REQUEST_REPORTERS_SUCCESS':
             // console.log(`reporters in action of reducer: ${JSON.stringify(action, null, 2)}`)

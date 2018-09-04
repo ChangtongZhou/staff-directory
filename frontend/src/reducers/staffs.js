@@ -3,7 +3,8 @@ const staffs = (state = {isLoading: false, error: null, staff: []}, action) => {
         case 'REQUEST_STAFFS_START':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: null
             };
         case 'REQUEST_STAFFS_SUCCESS':
             return {

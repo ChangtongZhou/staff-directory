@@ -136,7 +136,7 @@ const editStaff = (req, res) => {
                 // console.log(`index: ${index}`)
                 if (staff._id == req.body.manager || index != -1) {
                     console.log(`Management circle is not allowed`);
-                    res.status(500).json({error: "Management circle is not allowed"});
+                    res.status(500).json({error: "Management circle is not allowed."});
                 } else if(staff.manager != req.body.manager) {
                     // If manager changes
                     // 1. add current staff into new manager's direct reports

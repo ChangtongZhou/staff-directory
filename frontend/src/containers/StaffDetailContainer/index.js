@@ -6,6 +6,8 @@ import {getReporters} from '../../actions/directReporters'
 import {toggle} from '../../actions/redirect';
 import {withRouter} from 'react-router-dom';
 
+import {Button} from '@material-ui/core';
+
 import StaffDetail from '../../components/StaffDetail'
 const WithRouterStaffDetail = withRouter(StaffDetail);
 
@@ -21,31 +23,40 @@ class StaffDetailContainer extends Component {
     }
 
     render() {
-        const {staffDetail, toggle, redirect} = this.props;
-        // console.log(`staffDetail in StaffList container: ${JSON.stringify(staffDetail, null, 2)}`);
-        // console.log(`this.props in list contrainer: ${JSON.stringify(this.props, null, 2)}`)
-        // const {error, isLoading} = staffs;
-        // const staffList = staffs.staff;
-        // const detail = staffDetail;
-        return (
-            <Fragment>
-                {
-                    staffDetail.error? 
-                    <p style={{color: 'red'}}> Cannot get staff... </p> : 
-                    staffDetail
-                    && 
-                    // <p>{detail.detail.name}</p>
+        const {staffDetail} = this.props;
+        console.log(`staffDetail in StaffList container: ${JSON.stringify(staffDetail, null, 2)}`);
+        if (staffDetail.error) {
+             if (staffDetail.error.response.data.error) {
+                return (
+                    <div> 
+                        <p style={{color: 'red'}}> {staffDetail.error.response.data.error} </p>
+                        <WithRouterStaffDetail 
+                            staffDetail = {staffDetail} 
+                            editStaff = {this.props.editStaff} 
+                            getStaffDetail = {this.props.getStaffDetail} 
+                            getReporters = {this.props.getReporters}
+                        />
+                        
+                    </div>
+                )
+             } else {
+                return <p style={{color: 'red'}}> {staffDetail.error.response.data} </p>;
+             }
+        } else {
+            return (
+                <Fragment>
+                   
                     <WithRouterStaffDetail 
                         staffDetail = {staffDetail} 
                         editStaff = {this.props.editStaff} 
                         getStaffDetail = {this.props.getStaffDetail} 
                         getReporters = {this.props.getReporters}
+                        deleteStaff = {this.props.deleteStaff}
                     />
-                }
-                {/* {staffDetail.detail.name && } */}
-                
-            </Fragment>
-        )
+                    
+                </Fragment>
+            )
+        }
     }
 }
 
